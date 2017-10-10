@@ -1,0 +1,28 @@
+{
+  "name": "empirebot",
+  "version": "0.0.1",
+  "description": "A bot to help you rule empire",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab-etu.fil.univ-lille1.fr/vandeputte/EmpireBot.git"
+  },
+  "keywords": [
+    "bot",
+    "discord",
+    "roleplay"
+  ],
+  "author": "Simon Vandeputte",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab-etu.fil.univ-lille1.fr/vandeputte/EmpireBot/issues"
+  },
+  "homepage": "https://gitlab-etu.fil.univ-lille1.fr/vandeputte/EmpireBot",
+  "dependencies": {
+    "discord.js": "^11.2.1"
+  }
+}
