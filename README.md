@@ -14,5 +14,5 @@ $ cd EmpireBot
 Run the project
 
 ```bash
-$ node index.js
+$ npm start
 ```
