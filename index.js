@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const fs = require("fs");
+const __ = require("iterate-js");
 const client = new Discord.Client();
 
 let PREFIX = '!!';
@@ -72,4 +73,4 @@ client.on('message', msg =>
     }
 
 });
-client.login('MzY3MDEzMzYyOTU1MTkwMjgy.DL1P1Q.mqEpmyWaiyhgFapVRLdJI9m3sWM');
+client.login('');

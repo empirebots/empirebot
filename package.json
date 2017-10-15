@@ -23,6 +23,7 @@
   },
   "homepage": "https://gitlab-etu.fil.univ-lille1.fr/vandeputte/EmpireBot",
   "dependencies": {
+    "iterate-js": "^1.0.29",
     "discord.js": "^11.2.1"
   }
 }
