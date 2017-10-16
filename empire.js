@@ -9,13 +9,5 @@ module.exports = __.class(function(cfg){
     connect : function ()
     {
         return this.client.login(this.config.discord.token);
-    },
-    disconnnect: function ()
-    {
-        return this.client.destroy();
-    },
-    listen : function ()
-    {
-        this.console.listen();
     }
 });
