@@ -3,6 +3,7 @@ const tokenFromFile = require('./resources/token.js');
 
 module.exports = function (bot, config)
 {
+
     bot.config = new __.lib.Config({
         command: new __.lib.Config({
             symbol: '!'
@@ -15,5 +16,5 @@ module.exports = function (bot, config)
             })
         })
     });
-bot.config.update(config);
+    bot.config.update(config);
 };
