@@ -1,7 +1,8 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const help = require('./../help');
-var request = require('request');
+const request = require('request');
+const weather = require("./../weather");
 
 
 module.exports = function (bot)
@@ -9,10 +10,10 @@ module.exports = function (bot)
     bot.commands = {
         help: msg =>
         {
+            console.log("HELP: (" + msg.details + ") called by: " + msg.guild);
             let RichEmbed = new Discord.RichEmbed();
             RichEmbed.setColor("#63dded");
             RichEmbed.setThumbnail('https://imgur.com/uGJu3Jq.png');
-            RichEmbed.setAuthor('Aitux#1457', 'https://imgur.com/uGJu3Jq.png', 'https://aitux.github.io');
             fs.readdir('resources/man', 'utf8', (err, files) =>
             {
                 files.forEach((element) =>
@@ -48,6 +49,7 @@ module.exports = function (bot)
         },
         man: msg =>
         {
+            console.log("MAN: (" + msg.details + ") called by: " + msg.guild);
             let tab = msg.content.split(' ');
             if (tab.length <= 1)
             {
@@ -68,6 +70,7 @@ module.exports = function (bot)
         },
         meme: msg =>
         {
+            console.log("MEME: (" + msg.details + ") called by: " + msg.guild);
             let willBeParsed = msg.details;
             console.log(willBeParsed);
             let tab = parseMemeAPI(willBeParsed);
@@ -103,6 +106,42 @@ module.exports = function (bot)
         poll: msg =>
         {
 
+        },
+        weather: msg =>
+        {
+            console.log("WEATHER: (" + msg.details + ") called by: " + msg.guild);
+            let args = msg.details.trim().split(' ');
+            if (args.length > 0 && args[0] !== '')
+            {
+                getResponseWeatherAPI(msg.details, tab =>
+                {
+                    if (tab.length !== 1)
+                    {
+                        let embed = new Discord.RichEmbed();
+                        embed.setColor("#18a2f2");
+                        embed.setAuthor(tab[0] + ', ' + tab[1], 'https://imgur.com/uGJu3Jq.png', 'https://aitux.github.io');
+                        embed.addField(tab[2], tab[3], true);
+                        embed.addField(tab[4], tab[5] + "°C", true);
+                        let rise = new Date(tab[6] * 1000);
+                        let set = new Date(tab[7] * 1000);
+                        embed.addField(":sunrise:" + rise.getHours() + " : " + rise.getMinutes() + " : " + rise.getSeconds(), ":city_sunset:" + set.getHours() + " : " + set.getMinutes() + " : " + set.getSeconds(), true);
+
+                        msg.channel.send(embed);
+
+                    } else
+                    {
+                        msg.channel.send(tab[0]);
+                    }
+                });
+
+            } else
+            {
+                msg.channel.send("`MissingArgumentException`").catch();
+            }
+        },
+        intra: msg =>
+        {
+
         }
     };
 };
@@ -136,3 +175,36 @@ let getResponseMemeAPI = function (cmd, text1, text2, msg)
     );
 
 };
+
+let getResponseWeatherAPI = function (place, callback)
+{
+    let str = "http://api.openweathermap.org/data/2.5/weather?q=" + place + "&APPID=" + help.weatherKey;
+    request(str, function (error, response, body)
+    {
+        let data = JSON.parse(body);
+        if (data.cod === 200)
+        {
+            let weahter2 = data.weather[0].main;
+            let temp = kToC(data.main.temp);
+            let info = [];
+            info.push(data.name);
+            info.push(data.sys.country);
+            info.push(weahter2);
+            info.push(data.weather[0].description);
+            info.push(weather.getEquivalent(weahter2));
+            info.push(temp);
+            info.push(data.sys.sunrise);
+            info.push(data.sys.sunset);
+            callback(info);
+        } else if (data.cod === "404")
+        {
+            callback(["`CityNotFoundException`"]);
+        }
+    });
+};
+
+function kToC(kelvin)
+{
+    let temp = kelvin - 273.15;
+    return Math.round(temp * 10) / 10;
+}

@@ -25,6 +25,7 @@
   "dependencies": {
     "iterate-js": "^1.0.29",
     "discord.js": "^11.2.1",
-    "nanoajax": "^0.4.3"
+    "nanoajax": "^0.4.3",
+    "request": "latest"
   }
 }

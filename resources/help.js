@@ -1,5 +1,5 @@
 module.exports = {
-    command:["help", "meme", "man", "poll"],
+    command:["help", "meme", "man", "weather"],
     'id': {
         doge: "8072285",
         oprah: "28251713",
@@ -18,5 +18,6 @@ module.exports = {
         mvp: "15878567"
     },
     email: 'Aitux',
-    password: 'e94a0dc724'
+    password: 'e94a0dc724',
+    weatherKey: 'be61d005c1a761b7c16799704030ce26'
 };
