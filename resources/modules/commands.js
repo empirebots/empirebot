@@ -142,7 +142,6 @@ module.exports = function (bot)
         intra: msg =>
         {
             console.log("INTRA: (" + msg.details + ") called by: " + msg.guild);
-            console.log(msg.author.client.voiceConnections);
         }
     };
 };
